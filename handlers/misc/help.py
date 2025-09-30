@@ -63,7 +63,10 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     action = data[1]
     
-    if action == "main":
+    if action == "close":
+        await query.delete_message()
+        return
+    elif action == "main":
         await edit_main_help(update, context, is_admin)
     elif action == "category":
         if len(data) >= 3:

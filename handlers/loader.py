@@ -213,12 +213,20 @@ class CommandLoader:
         category_title = HELP_CATEGORIES.get(category, category.title())
         help_text = f"**{category_title}**\n\n"
         
+        # Use a set to track unique commands to avoid duplicates
+        seen_commands = set()
+        
         for command in commands:
             command_info = self.commands[command]
             
             # Check if user has permission to see this command
             if command_info.get('admin_only', False) and not user_is_admin:
                 continue
+            
+            # Skip if we've already shown this command
+            if command in seen_commands:
+                continue
+            seen_commands.add(command)
             
             description = command_info.get('description', 'No description')
             usage = command_info.get('usage', f'/{command}')

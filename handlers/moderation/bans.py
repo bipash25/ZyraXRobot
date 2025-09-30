@@ -61,8 +61,11 @@ async def handle_ban(update: Update, context: ContextTypes.DEFAULT_TYPE, ban_typ
     if await _check_user_protection(update, context, user_id):
         return
     
-    # Extract reason
-    reason = UserResolver.extract_reason(" ".join(context.args) if context.args else "")
+    # Extract reason - if replying, all args are reason, otherwise skip first arg (user)
+    if update.effective_message.reply_to_message:
+        reason = " ".join(context.args) if context.args else "No reason provided"
+    else:
+        reason = UserResolver.extract_reason(" ".join(context.args) if context.args else "")
     
     try:
         # Determine ban options
@@ -111,19 +114,13 @@ async def handle_ban(update: Update, context: ContextTypes.DEFAULT_TYPE, ban_typ
 
 async def handle_tban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle temporary ban command"""
-    if len(context.args) < 2:
-        await MessageHelper.send_message(
-            update, context, 
-            "❌ Usage: `/tban <user> <time> [reason]`\nExample: `/tban @user 1h spam`"
-        )
-        return
-    
-    # Resolve target user
+    # Resolve target user first
     target_user = await UserResolver.resolve_user(update, context)
     
     if not target_user:
         await MessageHelper.send_message(
-            update, context, "❌ Please specify a user to ban"
+            update, context, 
+            "❌ Usage: `/tban <user> <time> [reason]`\nExample: `/tban @user 1h spam`\nOr reply to a message with `/tban <time> [reason]`"
         )
         return
     
@@ -138,8 +135,14 @@ async def handle_tban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if await _check_user_protection(update, context, user_id):
         return
     
-    # Parse time duration
-    time_arg = context.args[1] if len(context.args) > 1 else context.args[0]
+    # Parse time duration - if replying, use first arg, otherwise use second arg
+    if update.effective_message.reply_to_message:
+        # When replying, first arg is time
+        time_arg = context.args[0] if context.args else "1m"
+    else:
+        # When not replying, second arg is time
+        time_arg = context.args[1] if len(context.args) > 1 else "1m"
+    
     duration_seconds = TimeParser.parse_time_string(time_arg)
     
     if not duration_seconds:
@@ -159,8 +162,14 @@ async def handle_tban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Calculate until_date
     until_date = datetime.now() + timedelta(seconds=duration_seconds)
     
-    # Extract reason (skip user and time args)
-    reason_parts = context.args[2:] if len(context.args) > 2 else []
+    # Extract reason - adjust based on whether we're replying or not
+    if update.effective_message.reply_to_message:
+        # When replying, skip first arg (time), rest is reason
+        reason_parts = context.args[1:] if len(context.args) > 1 else []
+    else:
+        # When not replying, skip first two args (user, time), rest is reason
+        reason_parts = context.args[2:] if len(context.args) > 2 else []
+    
     reason = " ".join(reason_parts) if reason_parts else "No reason provided"
     
     try:
