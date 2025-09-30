@@ -2,7 +2,7 @@
 Helper functions for ZyraX Bot
 """
 import logging
-from typing import Dict, Any, Optional, List, Union
+from typing import Dict, Any, Optional, List, Union, Tuple
 from datetime import datetime, timedelta
 from telegram import Update, User, Chat, ChatMember
 from telegram.ext import ContextTypes
