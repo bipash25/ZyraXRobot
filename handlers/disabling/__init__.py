@@ -1,0 +1,3 @@
+"""
+Command disabling handler
+"""

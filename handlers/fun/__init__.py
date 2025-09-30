@@ -1,0 +1,3 @@
+"""
+Fun commands handler
+"""

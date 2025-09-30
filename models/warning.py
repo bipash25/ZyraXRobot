@@ -1,7 +1,7 @@
 """
 Warning model for database operations
 """
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from datetime import datetime
 from dataclasses import dataclass, field, asdict
 from bson import ObjectId

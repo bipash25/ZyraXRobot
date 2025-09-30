@@ -1,0 +1,3 @@
+"""
+Anti-flood handler
+"""
