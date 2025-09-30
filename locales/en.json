@@ -1,0 +1,61 @@
+{
+  "welcome": {
+    "default": "Welcome {mention}! 👋",
+    "private": "Welcome to {chat}!"
+  },
+  "goodbye": {
+    "default": "Goodbye {first}! 👋"
+  },
+  "errors": {
+    "no_permission": "❌ You don't have permission to use this command.",
+    "admin_only": "❌ This command is for admins only.",
+    "group_only": "❌ This command can only be used in groups.",
+    "private_only": "❌ This command can only be used in private chat.",
+    "user_not_found": "❌ User not found.",
+    "invalid_time": "❌ Invalid time format. Use: 1m, 2h, 3d, etc.",
+    "database_error": "❌ Database error occurred. Please try again later.",
+    "rate_limited": "❌ You're sending commands too fast. Please slow down.",
+    "feature_disabled": "❌ This feature is disabled in this chat.",
+    "bot_not_admin": "❌ I need to be an admin to perform this action.",
+    "insufficient_permissions": "❌ I don't have sufficient permissions."
+  },
+  "success": {
+    "settings_updated": "✅ Settings updated successfully!",
+    "user_banned": "✅ User banned successfully.",
+    "user_unbanned": "✅ User unbanned successfully.",
+    "user_muted": "✅ User muted successfully.",
+    "user_unmuted": "✅ User unmuted successfully.",
+    "user_kicked": "✅ User kicked successfully.",
+    "user_warned": "✅ User warned successfully.",
+    "warning_removed": "✅ Warning removed successfully."
+  },
+  "moderation": {
+    "ban_message": "🔨 Banned {mention} from {chat}",
+    "unban_message": "✅ Unbanned {mention} from {chat}",
+    "mute_message": "🔇 Muted {mention} in {chat}",
+    "unmute_message": "✅ Unmuted {mention} in {chat}",
+    "kick_message": "👢 Kicked {mention} from {chat}",
+    "warn_message": "⚠️ Warning {count}/{limit} for {mention}\nReason: {reason}"
+  },
+  "help": {
+    "categories": {
+      "admin": "👑 Admin Commands",
+      "moderation": "🔨 Moderation",
+      "antiflood": "💧 Anti-Flood",
+      "antiraid": "🛡️ Anti-Raid",
+      "filters": "📝 Filters",
+      "notes": "📋 Notes",
+      "misc": "🔧 Miscellaneous"
+    }
+  },
+  "captcha": {
+    "welcome": "Welcome {mention}! Please solve the captcha below to verify you're human:",
+    "timeout": "❌ Captcha timeout. You have been removed from the chat.",
+    "success": "✅ Captcha solved! Welcome to the chat!",
+    "failed": "❌ Wrong answer. Please try again."
+  },
+  "flood": {
+    "detected": "💧 Flooding detected! Taking action against {mention}",
+    "settings": "Current flood settings:\nLimit: {limit} messages\nAction: {action}\nTimer: {timer} seconds"
+  }
+}
