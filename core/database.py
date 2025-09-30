@@ -25,7 +25,15 @@ class Database:
         try:
             self.client = motor.motor_asyncio.AsyncIOMotorClient(config.MONGODB_URI)
             # Extract database name from URI or use default
-            db_name = config.MONGODB_URI.split('/')[-1] if '/' in config.MONGODB_URI else 'zyraX_bot'
+            # Handle both local and Atlas URIs
+            if '/' in config.MONGODB_URI:
+                db_part = config.MONGODB_URI.split('/')[-1]
+                # Remove query parameters for Atlas URIs
+                db_name = db_part.split('?')[0] if '?' in db_part else db_part
+                # Use default if empty
+                db_name = db_name if db_name else 'zyraX_bot'
+            else:
+                db_name = 'zyraX_bot'
             self.db = self.client[db_name]
             
             # Test connection

@@ -67,7 +67,12 @@ class CommandLoader:
     async def _load_handler_file(self, handler_file: Path, category: str) -> None:
         """Load a single handler file"""
         # Build module path
-        relative_path = handler_file.relative_to(Path.cwd())
+        try:
+            relative_path = handler_file.relative_to(Path.cwd())
+        except ValueError:
+            # If not relative to cwd, try absolute path
+            relative_path = handler_file
+        
         module_path = str(relative_path.with_suffix('')).replace(os.sep, '.')
         
         try:

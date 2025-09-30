@@ -58,11 +58,6 @@ class ZyraXBot:
             # Setup error handler
             self.application.add_error_handler(self._error_handler)
             
-            # Add shutdown handler
-            self.application.add_handler(
-                self.application.builder().build().shutdown_handler
-            )
-            
             logger.info("Bot initialized successfully")
             return True
         
