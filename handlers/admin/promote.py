@@ -56,7 +56,7 @@ async def handle_promote(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Check if user is already admin
     try:
         member = await context.bot.get_chat_member(update.effective_chat.id, user_id)
-        if member.status in [ChatMemberStatus.CREATOR, ChatMemberStatus.ADMINISTRATOR]:
+        if member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
             await MessageHelper.send_message(
                 update, context, "❌ User is already an administrator"
             )
@@ -148,7 +148,7 @@ async def handle_demote(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         member = await context.bot.get_chat_member(update.effective_chat.id, user_id)
         
-        if member.status == ChatMemberStatus.CREATOR:
+        if member.status == ChatMemberStatus.OWNER:
             await MessageHelper.send_message(
                 update, context, "❌ Cannot demote the chat creator"
             )

@@ -263,7 +263,7 @@ async def _check_user_protection(update: Update, context: ContextTypes.DEFAULT_T
         
         # Check if target is admin
         member = await context.bot.get_chat_member(update.effective_chat.id, user_id)
-        if member.status in [ChatMemberStatus.CREATOR, ChatMemberStatus.ADMINISTRATOR]:
+        if member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]:
             await MessageHelper.send_message(
                 update, context, "❌ Cannot ban an administrator"
             )

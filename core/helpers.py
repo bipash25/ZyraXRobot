@@ -37,7 +37,7 @@ class PermissionChecker:
             
             # Get chat member
             member = await context.bot.get_chat_member(chat_id, user_id)
-            return member.status in [ChatMemberStatus.CREATOR, ChatMemberStatus.ADMINISTRATOR]
+            return member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR]
         
         except Exception as e:
             logger.error(f"Error checking admin status: {e}")
@@ -84,7 +84,7 @@ class PermissionChecker:
             member = await context.bot.get_chat_member(chat_id, user_id)
             
             # Creator has all permissions
-            if member.status == ChatMemberStatus.CREATOR:
+            if member.status == ChatMemberStatus.OWNER:
                 return True
             
             # Check specific permission
